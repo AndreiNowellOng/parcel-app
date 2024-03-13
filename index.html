@@ -17,20 +17,31 @@
       crossorigin=""
     ></script>
   </head>
-  <body style="height: 100vh;">
-    <div id="map" style="height: 100% "></div>
+  <body style="height: 100vh">
+    <div id="map" style="height: 100%"></div>
   </body>
   <script>
-    var map = L.map("map").setView([51.505, -0.09], 13);
-    var marker = L.marker([51.5, -0.09]).addTo(map);
+    //SET MAP LOCATION (LAT, LONG)
+    var map = L.map("map").setView([14.5995, 120.9842], 13);
 
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution:
-        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(map);
+    //ADD MARKER
+    var marker = L.marker([14.5995, 120.9842]).addTo(map);
 
-   
-  
+    L.tileLayer(
+      "https://api.maptiler.com/maps/openstreetmap/256/{z}/{x}/{y}.jpg?key=f7o9viz24aowHK4B26RH",
+      {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }
+    ).addTo(map);
+
+    map.on("click", function (e) {
+      window.ReactNativeWebView.postMessage("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
+    });
+
+    // setTimeout(function () {
+    //   window.ReactNativeWebView.postMessage("Hello!");
+    // }, 2000);
   </script>
 </html>
